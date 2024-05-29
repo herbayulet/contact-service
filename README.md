@@ -33,6 +33,8 @@ This application is a simple CRUD application connected to the contact API on He
 4. Start the application by using the command expo start.
 
 ## Image Apps
-- ![Screenshot from 2024-05-30 02-20-05](https://github.com/herbayulet/contact-service/assets/61405169/80a28f2f-02e2-4318-8526-bf9677d4d0a5)
-- ![Screenshot from 2024-05-30 02-21-17](https://github.com/herbayulet/contact-service/assets/61405169/f4e6c38d-56b8-404f-9f2a-da08090dfe26)
-- ![Screenshot from 2024-05-30 02-21-47](https://github.com/herbayulet/contact-service/assets/61405169/dba55c6b-b3f0-4053-88a5-54a3b59c9b45)
+<div style="display: flex; flex-direction: row;">
+  <img src="https://github.com/herbayulet/contact-service/assets/61405169/80a28f2f-02e2-4318-8526-bf9677d4d0a5" alt="Screenshot 1" width="200"/>
+  <img src="https://github.com/herbayulet/contact-service/assets/61405169/f4e6c38d-56b8-404f-9f2a-da08090dfe26" alt="Screenshot 2" width="200"/>
+  <img src="https://github.com/herbayulet/contact-service/assets/61405169/dba55c6b-b3f0-4053-88a5-54a3b59c9b45" alt="Screenshot 3" width="200"/>
+</div>
