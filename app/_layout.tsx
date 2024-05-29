@@ -15,7 +15,17 @@ const RootLayout = () => {
           headerShown: false,
         }}
       />
-      <Slot />
+      <Stack.Screen
+        name="main"
+        options={{
+          headerTitle: "Halaman Main",
+          headerStyle: {
+            backgroundColor: "blue",
+          },
+          headerTitleAlign: "center",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };
