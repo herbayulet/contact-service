@@ -24,6 +24,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { styles } from "./styles";
 import ModalConfirmation from "components/ModalConfirmation";
 import InputComponent from "components/InputComponent";
+import Toast from "react-native-toast-message";
 
 const Page = () => {
   const {
@@ -75,8 +76,20 @@ const Page = () => {
       try {
         const response = await createNewContact(data);
         bottomSheetRef.current?.close();
+        Toast.show({
+          type: "success",
+          text1: "Berhasil !!",
+          text2: "membuat contact baru",
+          visibilityTime: 3000,
+        });
       } catch (error) {
         console.log(error);
+        Toast.show({
+          type: "error",
+          text1: "Gagal !!",
+          text2: "membuat contact baru",
+          visibilityTime: 3000,
+        });
       }
     } else {
       try {
@@ -84,10 +97,21 @@ const Page = () => {
           id: selectedContact,
           updatedContact: data,
         });
-
+        Toast.show({
+          type: "success",
+          text1: "Berhasil !!",
+          text2: "update contact",
+          visibilityTime: 3000,
+        });
         bottomSheetRef.current?.close();
       } catch (error) {
         console.log(error, "ini error");
+        Toast.show({
+          type: "error",
+          text1: "Gagal !!",
+          text2: "update contact",
+          visibilityTime: 3000,
+        });
       }
     }
   };
