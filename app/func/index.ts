@@ -44,11 +44,14 @@ export const allFunction = () => {
           });
         }
       } catch (error) {
-        Toast.show({
-          type: "error",
-          text1: "hahaha",
-          visibilityTime: 3000,
-        });
+        if (error) {
+          Toast.show({
+            type: "error",
+            text1: "hahaha",
+            visibilityTime: 3000,
+          });
+        }
+
         console.log(error, "ini error");
       }
     },

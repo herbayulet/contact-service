@@ -75,15 +75,16 @@ const Page = () => {
     if (addMode == true) {
       try {
         const response = await createNewContact(data);
-        bottomSheetRef.current?.close();
-        Toast.show({
-          type: "success",
-          text1: "Berhasil !!",
-          text2: "membuat contact baru",
-          visibilityTime: 3000,
-        });
+        if (response?.error?.status !== 400) {
+          Toast.show({
+            type: "success",
+            text1: "Berhasil !!",
+            text2: "membuat contact baru",
+            visibilityTime: 3000,
+          });
+          bottomSheetRef.current?.close();
+        }
       } catch (error) {
-        console.log(error);
         Toast.show({
           type: "error",
           text1: "Gagal !!",
@@ -97,21 +98,23 @@ const Page = () => {
           id: selectedContact,
           updatedContact: data,
         });
-        Toast.show({
-          type: "success",
-          text1: "Berhasil !!",
-          text2: "update contact",
-          visibilityTime: 3000,
-        });
-        bottomSheetRef.current?.close();
+        if (response.error.status !== 400) {
+          Toast.show({
+            type: "success",
+            text1: "Berhasil !!",
+            text2: "update contact",
+            visibilityTime: 3000,
+          });
+          bottomSheetRef.current?.close();
+        }
       } catch (error) {
-        console.log(error, "ini error");
         Toast.show({
           type: "error",
           text1: "Gagal !!",
           text2: "update contact",
           visibilityTime: 3000,
         });
+        bottomSheetRef.current?.close();
       }
     }
   };
