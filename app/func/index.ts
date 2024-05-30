@@ -5,6 +5,7 @@ import {
   useGetAllContactsQuery,
 } from "@/redux/service/data";
 import debounce from "lodash/debounce";
+import Toast from "react-native-toast-message";
 
 export const allFunction = () => {
   const [photo, setPhoto] = useState<any>(null);
@@ -34,8 +35,21 @@ export const allFunction = () => {
     async (id: any) => {
       try {
         const response = await deleteContact(id);
+        if (response?.error?.status !== 400) {
+          Toast.show({
+            type: "success",
+            text1: "Berhasil !!",
+            text2: "menghapus contact",
+            visibilityTime: 3000,
+          });
+        }
       } catch (error) {
-        console.log(error);
+        Toast.show({
+          type: "error",
+          text1: "hahaha",
+          visibilityTime: 3000,
+        });
+        console.log(error, "ini error");
       }
     },
     [deleteContact]
