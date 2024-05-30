@@ -3,13 +3,11 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   ActivityIndicator,
   FlatList,
   TouchableOpacity,
-  Image,
 } from "react-native";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserSchema } from "./schema";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,7 +16,6 @@ import {
   useGetContactByIdQuery,
   useCreateNewContactMutation,
   useUpdateContactMutation,
-  useDeleteContactMutation,
 } from "./redux/service/data";
 import { Ionicons } from "@expo/vector-icons";
 import { CustomBottomSheet } from "components/CustomBottomSheet";
@@ -26,8 +23,7 @@ import { allFunction } from "./func";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { styles } from "./styles";
 import ModalConfirmation from "components/ModalConfirmation";
-
-// Define the schema using Zod
+import InputComponent from "components/InputComponent";
 
 const Page = () => {
   const {
@@ -51,6 +47,10 @@ const Page = () => {
     showConfirmationModal,
     selectedContact,
     setSelectedContact,
+    handleChangeSearch,
+    searchQuery,
+    setFilteredContacts,
+    filteredContacts,
   } = allFunction();
   const { data: dataContacts, error, isLoading } = useGetAllContactsQuery();
 
@@ -127,6 +127,12 @@ const Page = () => {
     }
   }, [setValue, detailContacts, addMode]);
 
+  useEffect(() => {
+    if (dataContacts?.data) {
+      setFilteredContacts(dataContacts.data);
+    }
+  }, [dataContacts]);
+
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.card}>
       <Text
@@ -158,11 +164,17 @@ const Page = () => {
         <Text style={{ fontSize: 24, textAlign: "center", marginBottom: 30 }}>
           List Contact Heroku
         </Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search Contacts"
+          value={searchQuery}
+          onChangeText={handleChangeSearch}
+        />
         {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
         {error && <Text>Error: {error.toString()}</Text>}
         {dataContacts?.data && (
           <FlatList
-            data={dataContacts?.data}
+            data={filteredContacts}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
             style={styles.flatList}
@@ -201,86 +213,19 @@ const Page = () => {
         ref={bottomSheetRef}
         title={addMode ? "Tambah Kontak" : "Edit Kontak"}
       >
-        <View style={styles.contentContainer}>
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="First Name"
-              />
-            )}
-            name="firstName"
-            defaultValue=""
-          />
-          {errors.firstName && (
-            <Text style={styles.error}>{String(errors.firstName.message)}</Text>
-          )}
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Last Name"
-              />
-            )}
-            name="lastName"
-            defaultValue=""
-          />
-          {errors.lastName && (
-            <Text style={styles.error}>{String(errors.lastName.message)}</Text>
-          )}
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Age"
-              />
-            )}
-            name="age"
-            defaultValue=""
-          />
-          {errors.age && (
-            <Text style={styles.error}>{String(errors.age.message)}</Text>
-          )}
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TouchableOpacity
-                style={[styles.input, styles.photoInput]}
-                onPress={() => {
-                  pickImage(); // Memanggil fungsi pickImage saat input foto ditekan
-                }}
-              >
-                {photo ? (
-                  <Image source={{ uri: photo }} style={styles.photoPreview} />
-                ) : (
-                  <Text style={styles.photoPlaceholder}>Select Photo</Text>
-                )}
-              </TouchableOpacity>
-            )}
-            name="photo"
-            defaultValue=""
-          />
-          {errors.photo && (
-            <Text style={styles.error}>{String(errors.photo.message)}</Text>
-          )}
-          {addMode ? (
-            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-          ) : (
-            <Button title="Update" onPress={handleSubmit(onSubmit)} />
-          )}
-        </View>
+        <InputComponent
+          pickImage={pickImage}
+          photo={photo}
+          addMode={addMode}
+          onSubmit={onSubmit}
+          formMethods={{
+            control,
+            handleSubmit,
+            setValue,
+            reset,
+            formState: { errors },
+          }}
+        />
       </CustomBottomSheet>
       <ModalConfirmation
         showConfirmationModal={showConfirmationModal}

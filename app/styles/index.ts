@@ -32,11 +32,12 @@ export const styles = StyleSheet.create({
     // backgroundColor: "red",
   },
   card: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 16,
-    marginVertical: 8,
+    padding: 10,
+    marginVertical: 5,
     backgroundColor: "#fff",
     borderRadius: 8,
     shadowColor: "#000",
@@ -110,5 +111,13 @@ export const styles = StyleSheet.create({
   },
   modalYa: {
     backgroundColor: "red",
+  },
+  searchInput: {
+    backgroundColor: "#ffffff",
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
 });

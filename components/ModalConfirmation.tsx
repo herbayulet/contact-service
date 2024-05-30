@@ -4,7 +4,7 @@ import { styles } from "@/styles";
 
 interface PropsModalConfirmation {
   showConfirmationModal: boolean;
-  handleDeleteConfirmation: () => void;
+  handleDeleteConfirmation: (id: string) => void;
   closeConfirmationModal: () => void;
   selectedContact: string;
 }
@@ -28,7 +28,12 @@ const ModalConfirmation: React.FC<PropsModalConfirmation> = ({
           </Text>
           <View style={styles.modalButtons}>
             <Button title="Tidak" onPress={closeConfirmationModal} />
-            <Button title="Ya" onPress={handleDeleteConfirmation} />
+            <Button
+              title="Ya"
+              onPress={() => {
+                handleDeleteConfirmation(selectedContact);
+              }}
+            />
           </View>
         </View>
       </View>
