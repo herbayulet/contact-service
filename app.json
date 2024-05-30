@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "user-code.id",
-    "slug": "user-code.id",
+    "name": "user-code",
+    "slug": "user-code",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.herbayuuw.usercode"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +41,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "88966da0-7571-4bd8-adff-784e3ed20fb6"
+      }
     }
   }
 }
