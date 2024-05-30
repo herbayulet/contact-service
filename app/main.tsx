@@ -85,12 +85,15 @@ const Page = () => {
           bottomSheetRef.current?.close();
         }
       } catch (error) {
-        Toast.show({
-          type: "error",
-          text1: "Gagal !!",
-          text2: "membuat contact baru",
-          visibilityTime: 3000,
-        });
+        if (error) {
+          Toast.show({
+            type: "error",
+            text1: "Gagal !!",
+            text2: "membuat contact baru",
+            visibilityTime: 3000,
+          });
+          bottomSheetRef.current?.close();
+        }
       }
     } else {
       try {
@@ -98,7 +101,7 @@ const Page = () => {
           id: selectedContact,
           updatedContact: data,
         });
-        if (response.error.status !== 400) {
+        if (response?.error?.status !== 400) {
           Toast.show({
             type: "success",
             text1: "Berhasil !!",
@@ -107,14 +110,17 @@ const Page = () => {
           });
           bottomSheetRef.current?.close();
         }
+        console.log(response, "res update");
       } catch (error) {
-        Toast.show({
-          type: "error",
-          text1: "Gagal !!",
-          text2: "update contact",
-          visibilityTime: 3000,
-        });
-        bottomSheetRef.current?.close();
+        if (error) {
+          Toast.show({
+            type: "error",
+            text1: "Gagal !!",
+            text2: "update contact",
+            visibilityTime: 3000,
+          });
+          bottomSheetRef.current?.close();
+        }
       }
     }
   };
