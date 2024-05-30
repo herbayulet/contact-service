@@ -48,7 +48,7 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             onChangeText={onChange}
             value={value}
             placeholder="First Name"
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"#fff897"}
           />
         )}
         name="firstName"
@@ -66,7 +66,7 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             onChangeText={onChange}
             value={value}
             placeholder="Last Name"
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"#fff897"}
           />
         )}
         name="lastName"
@@ -84,7 +84,7 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             onChangeText={onChange}
             value={value}
             placeholder="Age"
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"#fff897"}
           />
         )}
         name="age"
