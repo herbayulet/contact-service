@@ -13,11 +13,8 @@ export const allFunction = () => {
   const [selectedContact, setSelectedContact] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filteredContacts, setFilteredContacts] = useState<any[]>([]);
-  const { data: dataContacts, error, isLoading } = useGetAllContactsQuery();
-  const [
-    deleteContact,
-    { data: deleteData, error: errorDelete, isLoading: loadingDelete },
-  ] = useDeleteContactMutation();
+  const { data: dataContacts } = useGetAllContactsQuery();
+  const [deleteContact] = useDeleteContactMutation();
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -39,6 +36,13 @@ export const allFunction = () => {
           Toast.show({
             type: "success",
             text1: "Berhasil !!",
+            text2: "menghapus contact",
+            visibilityTime: 3000,
+          });
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Gagal",
             text2: "menghapus contact",
             visibilityTime: 3000,
           });

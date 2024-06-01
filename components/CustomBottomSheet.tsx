@@ -28,11 +28,11 @@ export const CustomBottomSheet = forwardRef<Ref, Props>(
     return (
       <BottomSheetModal
         ref={ref}
-        index={1}
+        index={2}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
         backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: "#1d0f4b" }}
+        backgroundStyle={{ backgroundColor: "#ffffff" }}
         handleIndicatorStyle={{ backgroundColor: "#ffffff" }}
       >
         <View style={styles.contentContainer}>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     padding: 20,
-    color: "#fff",
+    color: "#000000",
     marginBottom: 20,
   },
 });

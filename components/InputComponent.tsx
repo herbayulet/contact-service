@@ -12,17 +12,18 @@ import {
   useForm,
   SubmitErrorHandler,
   UseFormReturn,
+  SubmitHandler,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserSchema } from "@/schema";
+import { SchemaUser, UserSchema } from "@/schema";
 import { styles } from "@/styles";
 
 interface PropsInputComponent {
   pickImage: () => void;
   photo: string;
   addMode: boolean;
-  onSubmit: SubmitHandler<UserSchema>;
-  formMethods: UseFormReturn<UserSchema>;
+  onSubmit: SubmitHandler<SchemaUser>;
+  formMethods: UseFormReturn<SchemaUser>;
 }
 
 const InputComponent: React.FC<PropsInputComponent> = ({
@@ -48,7 +49,6 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             onChangeText={onChange}
             value={value}
             placeholder="First Name"
-            placeholderTextColor={"#fff897"}
           />
         )}
         name="firstName"
@@ -66,7 +66,6 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             onChangeText={onChange}
             value={value}
             placeholder="Last Name"
-            placeholderTextColor={"#fff897"}
           />
         )}
         name="lastName"
@@ -82,37 +81,26 @@ const InputComponent: React.FC<PropsInputComponent> = ({
             style={styles.input}
             onBlur={onBlur}
             onChangeText={onChange}
-            value={value}
+            value={value ? String(value) : ""}
             placeholder="Age"
-            placeholderTextColor={"#fff897"}
+            keyboardType="number-pad"
           />
         )}
         name="age"
-        defaultValue=""
       />
       {errors.age && (
         <Text style={styles.error}>{String(errors.age.message)}</Text>
       )}
-      <Controller
-        control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TouchableOpacity
-            style={[styles.input, styles.photoInput]}
-            onPress={pickImage}
-          >
-            {photo ? (
-              <Image source={{ uri: photo }} style={styles.photoPreview} />
-            ) : (
-              <Text style={styles.photoPlaceholder}>Select Photo</Text>
-            )}
-          </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.input, styles.photoInput]}
+        onPress={pickImage}
+      >
+        {photo.length > 0 ? (
+          <Image source={{ uri: photo }} style={styles.photoPreview} />
+        ) : (
+          <Text style={styles.photoPlaceholder}>Select Photo</Text>
         )}
-        name="photo"
-        defaultValue=""
-      />
-      {errors.photo && (
-        <Text style={styles.error}>{String(errors.photo.message)}</Text>
-      )}
+      </TouchableOpacity>
       <Button
         title={addMode ? "Submit" : "Update"}
         onPress={handleSubmit(onSubmit)}

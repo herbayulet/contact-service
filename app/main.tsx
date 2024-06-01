@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserSchema } from "./schema";
+import { SchemaUser, UserSchema } from "./schema";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   useGetAllContactsQuery,
@@ -33,7 +33,7 @@ const Page = () => {
     setValue,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<SchemaUser>({
     resolver: zodResolver(UserSchema),
   });
 
@@ -61,17 +61,11 @@ const Page = () => {
     isLoading: loadingById,
   } = useGetContactByIdQuery(selectedContact);
 
-  const [
-    createNewContact,
-    { data, error: errorCreate, isLoading: loadingCreate },
-  ] = useCreateNewContactMutation();
+  const [createNewContact] = useCreateNewContactMutation();
 
-  const [
-    updateContact,
-    { data: dataUpdate, error: errorUpdate, isLoading: loadingUpdate },
-  ] = useUpdateContactMutation();
+  const [updateContact] = useUpdateContactMutation();
 
-  const onSubmit: SubmitHandler<UserSchema> = async (data: any) => {
+  const onSubmit: SubmitHandler<SchemaUser> = async (data) => {
     if (addMode == true) {
       try {
         const response = await createNewContact(data);
@@ -83,17 +77,23 @@ const Page = () => {
             visibilityTime: 3000,
           });
           bottomSheetRef.current?.close();
-        }
-      } catch (error) {
-        if (error) {
+        } else {
           Toast.show({
             type: "error",
             text1: "Gagal !!",
-            text2: "membuat contact baru",
+            text2: "update contact",
             visibilityTime: 3000,
           });
           bottomSheetRef.current?.close();
         }
+      } catch (error) {
+        Toast.show({
+          type: "error",
+          text1: "Gagal !!",
+          text2: "membuat contact baru",
+          visibilityTime: 3000,
+        });
+        bottomSheetRef.current?.close();
       }
     } else {
       try {
@@ -109,10 +109,7 @@ const Page = () => {
             visibilityTime: 3000,
           });
           bottomSheetRef.current?.close();
-        }
-        console.log(response, "res update");
-      } catch (error) {
-        if (error) {
+        } else {
           Toast.show({
             type: "error",
             text1: "Gagal !!",
@@ -121,6 +118,15 @@ const Page = () => {
           });
           bottomSheetRef.current?.close();
         }
+        console.log(response, "res update");
+      } catch (error) {
+        Toast.show({
+          type: "error",
+          text1: "Gagal !!",
+          text2: "update contact",
+          visibilityTime: 3000,
+        });
+        bottomSheetRef.current?.close();
       }
     }
   };
@@ -177,7 +183,7 @@ const Page = () => {
             handlePresentModalPress(item?.id, false);
           }}
         >
-          <Ionicons name="eye" size={24} color="green" />
+          <Ionicons name="eye" size={24} color="#EEA53D" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -197,6 +203,7 @@ const Page = () => {
         <Text style={{ fontSize: 24, textAlign: "center", marginBottom: 30 }}>
           List Contact Heroku
         </Text>
+
         <TextInput
           style={styles.searchInput}
           placeholder="Search Contacts"
@@ -216,7 +223,7 @@ const Page = () => {
         )}
         <TouchableOpacity
           style={{
-            backgroundColor: "blue",
+            backgroundColor: "#0C0D0E",
             padding: 10,
             height: 50,
             borderRadius: 15,

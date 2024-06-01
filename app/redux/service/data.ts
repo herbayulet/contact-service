@@ -6,7 +6,7 @@ export const dataApi = createApi({
   tagTypes: ["Contact"],
   endpoints: (builder) => ({
     // mendapatkan semua list kontak
-    getAllContacts: builder.query({
+    getAllContacts: builder.query<unknown, void>({
       query: () => `/contact`,
       providesTags: ["Contact"],
     }),

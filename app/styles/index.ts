@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     paddingHorizontal: 10,
     borderRadius: 10,
-    color: "#FFF",
   },
   error: {
     color: "red",
@@ -36,7 +35,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 10,
+    padding: 16,
     marginVertical: 5,
     backgroundColor: "#fff",
     borderRadius: 8,
@@ -45,6 +44,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
+    width: "100%",
   },
   cardText: {
     fontSize: 16,
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
   },
   photoPlaceholder: {
     fontSize: 16,
-    color: "#666",
+    color: "#000",
   },
   flatList: {
     flex: 1,
